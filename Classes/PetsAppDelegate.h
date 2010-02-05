@@ -7,7 +7,7 @@
 //
 
 @interface PetsAppDelegate : NSObject <UIApplicationDelegate> {
-    
+#pragma mark Instance variables
     // Managed Object Model (MOM) - object representation of the database schema.
     // The database schema describes entities and relationships
     NSManagedObjectModel *managedObjectModel;
@@ -22,6 +22,8 @@
     UINavigationController *navigationController;
 }
 
+#pragma mark Properties
+// These three readonly properties aren't synthesized in .m file.  They will be lazy-loaded.
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;

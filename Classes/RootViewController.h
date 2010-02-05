@@ -11,6 +11,7 @@
 	NSManagedObjectContext *managedObjectContext;
 }
 
+// These properties have setters.  The app delegate sets the rootViewController.managedObjectContext.
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 

@@ -37,6 +37,8 @@
 	
     NSError *error = nil;
     if (managedObjectContext != nil) {
+        // if we have changes, call save, pass pointer (address) to store any error(s), get BOOL result.
+        // - (BOOL)save:(NSError **)errorPointer returns YES if successful, otherwise NO
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
 			/*
 			 Replace this implementation with code to handle the error appropriately.
@@ -44,6 +46,7 @@
 			 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
 			 */
 			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            // if abort() runs, the console will show something like Program received signal: "SIGABORT".
 			abort();
         } 
     }
@@ -62,10 +65,14 @@
     if (managedObjectContext != nil) {
         return managedObjectContext;
     }
-	
+    // The store coordinator wasn't set previously.  We wait until here to load it, an example of "lazy loading".	
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
+        // The managed object context wasn't instantiated previously.
+        // We wait until here to load it, an example of "lazy loading".	
         managedObjectContext = [[NSManagedObjectContext alloc] init];
+        // The persistent store coordinator wasn't set previously.
+        // We wait until here to set it, another example of "lazy loading".	
         [managedObjectContext setPersistentStoreCoordinator: coordinator];
     }
     return managedObjectContext;
@@ -135,12 +142,12 @@
 
 - (void)dealloc {
 	
-    [managedObjectContext release];
-    [managedObjectModel release];
-    [persistentStoreCoordinator release];
+    [managedObjectContext release], managedObjectContext = nil;
+    [managedObjectModel release], managedObjectModel = nil;
+    [persistentStoreCoordinator release], persistentStoreCoordinator = nil;
     
-	[navigationController release];
-	[window release];
+	[navigationController release], navigationController = nil;
+	[window release], window = nil;
 	[super dealloc];
 }
 
