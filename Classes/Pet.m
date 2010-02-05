@@ -11,6 +11,7 @@
 
 @implementation Pet 
 
+// @dynamic tells compiler that another class will supply accessor methods at run time.
 @dynamic name;
 @dynamic breed;
 
