@@ -8,8 +8,14 @@
 
 @interface PetsAppDelegate : NSObject <UIApplicationDelegate> {
     
+    // Managed Object Model (MOM) - object representation of the database schema.
+    // The database schema describes entities and relationships
     NSManagedObjectModel *managedObjectModel;
-    NSManagedObjectContext *managedObjectContext;	    
+    // Managed Object Context (MOC) - scratchpad, manages object lifecycle.
+    // Holds inserts, deletes, and updates until we save.
+    NSManagedObjectContext *managedObjectContext;
+    // Persistent Store Coordinator (PSC) manages Persistent Object Store (POS).
+    // Gets objects in and out of database
     NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
     UIWindow *window;
