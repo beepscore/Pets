@@ -8,6 +8,7 @@
 
 #import "DetailViewController.h"
 #import "Pet.h"
+#import "EditViewController.h"
 
 @implementation DetailViewController
 
@@ -133,12 +134,28 @@
     return cell;
 }
 
-// TODO:  check this
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
-	// [self.navigationController pushViewController:anotherViewController];
-	// [anotherViewController release];
+    if (!self.editing) return;
+
+    EditViewController *controller = [[EditViewController alloc] 
+                                      initWithNibName:@"EditViewController"
+                                      bundle:nil];
+    
+    controller.editedObject = self.pet;
+    switch (indexPath.row) {
+        case 0: {
+            controller.editedFieldKey = @"name";
+            controller.editedFieldName = NSLocalizedString(@"name", @"display name for name");
+        }
+        break;
+        case 1: {
+            controller.editedFieldKey = @"breed";
+            controller.editedFieldName = NSLocalizedString(@"breed", @"display name for breed");
+        }
+            break;
+    }
+    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
 }
 
 

@@ -20,6 +20,8 @@
 		DE858122111CAB5400A69851 /* Pet.m in Sources */ = {isa = PBXBuildFile; fileRef = DE858121111CAB5400A69851 /* Pet.m */; };
 		DEC77DF6111CAF0900BD7D9A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC77DF5111CAF0900BD7D9A /* DetailViewController.m */; };
 		DEC77DFF111CBB3B00BD7D9A /* AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC77DFE111CBB3B00BD7D9A /* AddViewController.m */; };
+		DEE08628111D292B0067AB4A /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE08626111D292B0067AB4A /* EditViewController.m */; };
+		DEE08629111D292B0067AB4A /* EditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEE08627111D292B0067AB4A /* EditViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,9 @@
 		DEC77DF5111CAF0900BD7D9A /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		DEC77DFD111CBB3B00BD7D9A /* AddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddViewController.h; sourceTree = "<group>"; };
 		DEC77DFE111CBB3B00BD7D9A /* AddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddViewController.m; sourceTree = "<group>"; };
+		DEE08625111D292B0067AB4A /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
+		DEE08626111D292B0067AB4A /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
+		DEE08627111D292B0067AB4A /* EditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = EditViewController.xib; path = Classes/EditViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +79,8 @@
 				DEC77DF5111CAF0900BD7D9A /* DetailViewController.m */,
 				DEC77DFD111CBB3B00BD7D9A /* AddViewController.h */,
 				DEC77DFE111CBB3B00BD7D9A /* AddViewController.m */,
+				DEE08625111D292B0067AB4A /* EditViewController.h */,
+				DEE08626111D292B0067AB4A /* EditViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -110,6 +117,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DEE08627111D292B0067AB4A /* EditViewController.xib */,
 				28860B760F44E54D00985440 /* Pets.xcdatamodel */,
 				2899E55F0DE3E45000AC0155 /* RootViewController.xib */,
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
@@ -180,6 +188,7 @@
 			files = (
 				28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */,
 				2899E5600DE3E45000AC0155 /* RootViewController.xib in Resources */,
+				DEE08629111D292B0067AB4A /* EditViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +206,7 @@
 				DE858122111CAB5400A69851 /* Pet.m in Sources */,
 				DEC77DF6111CAF0900BD7D9A /* DetailViewController.m in Sources */,
 				DEC77DFF111CBB3B00BD7D9A /* AddViewController.m in Sources */,
+				DEE08628111D292B0067AB4A /* EditViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
