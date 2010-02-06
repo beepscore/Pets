@@ -10,7 +10,6 @@
 
 
 @interface EditViewController : UIViewController {
-    // ????: use UITextFieldDelegate also??????????? Ref Dudney
     UITextField *textField;
     
     NSManagedObject *editedObject;

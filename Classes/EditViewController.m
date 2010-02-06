@@ -28,7 +28,6 @@
 */
 
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
 
     // Set the title to the user-visible name of the field
@@ -51,6 +50,15 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    textField.text = [editedObject valueForKey:editedFieldKey];
+    textField.placeholder = self.title;
+    [textField becomeFirstResponder];
+}
+
+
 /*
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -58,6 +66,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
+
 
 #pragma mark Memory management
 - (void)didReceiveMemoryWarning {
@@ -91,14 +100,6 @@
 }
 
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    textField.text = [editedObject valueForKey:editedFieldKey];
-    textField.placeholder = self.title;
-    [textField becomeFirstResponder];
-}
-
 #pragma mark actions
 - (void)cancel {
     // Don't pass current value to the edited object, just pop
@@ -108,6 +109,4 @@
     [editedObject setValue:textField.text forKey:editedFieldKey];
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-
 @end

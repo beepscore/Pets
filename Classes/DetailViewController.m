@@ -36,7 +36,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     // Redisplay the data
-    //[super viewWillAppear:animated];
     // If you have a lot of data, you may want to load only the changes.
     // Reloading the entire table could be expensive.
     // In our example we have a small database so it's ok.

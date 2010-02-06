@@ -7,7 +7,8 @@
 //
 
 #import "RootViewController.h"
-
+#import "DetailViewController.h"
+#import "Pet.h"
 
 @implementation RootViewController
 
@@ -23,6 +24,7 @@
     
 	// Set up the edit and add buttons.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    self.navigationItem.title = @"Pets";
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewPet)];
     self.navigationItem.rightBarButtonItem = addButton;
@@ -113,7 +115,6 @@
                                     insertNewObjectForEntityForName:@"Pet"
                                     inManagedObjectContext:self.addingManagedObjectContext];
     
-    // TODO:  shouldnt we just push a view here?
     UINavigationController *navController = [[UINavigationController alloc]
                                              initWithRootViewController:addViewController];
     [self.navigationController presentModalViewController:navController animated:YES];

@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Override super's viewDidLoad with different navigation bar items and title
+    // Override the DetailViewController viewDidLoad with different navigation bar items and title
     self.title = @"New Pet";
     self.navigationItem.leftBarButtonItem = 
     [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
