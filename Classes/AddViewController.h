@@ -16,7 +16,7 @@
 @protocol AddViewControllerDelegate;
 
 @interface AddViewController : DetailViewController {
-    // create a delegate that implements AddViewControllerDelegate protocol
+    // declare a delegate that implements AddViewControllerDelegate protocol
     id <AddViewControllerDelegate> delegate;
 }
 
@@ -25,6 +25,7 @@
 // the AddViewController instance.
 @property (nonatomic, assign) id <AddViewControllerDelegate> delegate;
 
+// this action isn't in a nib file, so we can just use type void instead of IBAction
 - (void)cancel:(id)sender;
 - (void)save:(id)sender;
 @end

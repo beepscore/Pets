@@ -11,7 +11,7 @@
 
 @implementation RootViewController
 
-@synthesize fetchedResultsController, managedObjectContext;
+@synthesize fetchedResultsController, managedObjectContext, addingManagedObjectContext;
 
 
 #pragma mark -
@@ -20,11 +20,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
 	// Set up the edit and add buttons.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewPet)];
     self.navigationItem.rightBarButtonItem = addButton;
     [addButton release];
 	
@@ -41,25 +41,25 @@
 }
 
 /*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-*/
+ - (void)viewWillAppear:(BOOL)animated {
+ [super viewWillAppear:animated];
+ }
+ */
 /*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-*/
+ - (void)viewDidAppear:(BOOL)animated {
+ [super viewDidAppear:animated];
+ }
+ */
 /*
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-}
-*/
+ - (void)viewWillDisappear:(BOOL)animated {
+ [super viewWillDisappear:animated];
+ }
+ */
 /*
-- (void)viewDidDisappear:(BOOL)animated {
-	[super viewDidDisappear:animated];
-}
-*/
+ - (void)viewDidDisappear:(BOOL)animated {
+ [super viewDidDisappear:animated];
+ }
+ */
 
 - (void)viewDidUnload {
 	// Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
@@ -68,37 +68,58 @@
 
 /*
  // Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	// Return YES for supported orientations.
-	return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
+ - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+ // Return YES for supported orientations.
+ return (interfaceOrientation == UIInterfaceOrientationPortrait);
+ }
  */
+
+
+#pragma mark Memory management
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+	// Relinquish ownership of any cached data, images, etc that aren't in use.
+}
+
+- (void)dealloc {
+	[fetchedResultsController release], fetchedResultsController = nil;
+	[managedObjectContext release], managedObjectContext = nil;
+	[addingManagedObjectContext release], addingManagedObjectContext = nil;
+    [super dealloc];
+}
 
 
 #pragma mark -
 #pragma mark Add a new object
 
-- (void)insertNewObject {
+- (void)insertNewPet {
+    
+    AddViewController *addViewController = [[AddViewController alloc]
+                                            initWithStyle:UITableViewStyleGrouped];
+    // this setter assigns, doesn't retain
+    addViewController.delegate = self;
 	
-	// Create a new instance of the entity managed by the fetched results controller.
-	NSManagedObjectContext *context = [fetchedResultsController managedObjectContext];
-	NSEntityDescription *entity = [[fetchedResultsController fetchRequest] entity];
-	NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-	
-	// If appropriate, configure the new managed object.
-	[newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
-	
-	// Save the context.
-    NSError *error = nil;
-    if (![context save:&error]) {
-		/*
-		 Replace this implementation with code to handle the error appropriately.
-		 
-		 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-		 */
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		abort();
-    }
+    
+	NSManagedObjectContext *addingContext = [[NSManagedObjectContext alloc] init];
+    self.addingManagedObjectContext = addingContext;
+    [addingContext release], addingContext = nil;
+    
+    [self.addingManagedObjectContext setPersistentStoreCoordinator:
+     [[fetchedResultsController managedObjectContext] persistentStoreCoordinator]];
+    
+    // add a pet
+	addViewController.pet = (Pet *)[NSEntityDescription 
+                                    insertNewObjectForEntityForName:@"Pet"
+                                    inManagedObjectContext:self.addingManagedObjectContext];
+    
+    // TODO:  shouldnt we just push a view here?
+    UINavigationController *navController = [[UINavigationController alloc]
+                                             initWithRootViewController:addViewController];
+    [self.navigationController presentModalViewController:navController animated:YES];
+    
+    [addViewController release], addViewController = nil;
+    [navController release], navController = nil;
 }
 
 
@@ -128,7 +149,7 @@
     
 	// Configure the cell.
 	NSManagedObject *managedObject = [fetchedResultsController objectAtIndexPath:indexPath];
-	cell.textLabel.text = [[managedObject valueForKey:@"timeStamp"] description];
+	cell.textLabel.text = [[managedObject valueForKey:@"name"] description];
 	
     return cell;
 }
@@ -148,12 +169,12 @@
 
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 
 // Override to support editing the table view.
@@ -196,18 +217,18 @@
     
     /*
 	 Set up the fetched results controller.
-	*/
+     */
 	// Create the fetch request for the entity.
 	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 	// Edit the entity name as appropriate.
-	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:managedObjectContext];
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Pet" inManagedObjectContext:managedObjectContext];
 	[fetchRequest setEntity:entity];
 	
 	// Set the batch size to a suitable number.
 	[fetchRequest setFetchBatchSize:20];
 	
 	// Edit the sort key as appropriate.
-	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	
 	[fetchRequest setSortDescriptors:sortDescriptors];
@@ -235,41 +256,61 @@
 
 /*
  Instead of using controllerDidChangeContent: to respond to all changes, you can implement all the delegate methods to update the table view in response to individual changes.  This may have performance implications if a large number of changes are made simultaneously.
-
-// Notifies the delegate that section and object changes are about to be processed and notifications will be sent. 
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-	[self.tableView beginUpdates];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-	// Update the table view appropriately.
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-	// Update the table view appropriately.
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-	[self.tableView endUpdates];
-} 
+ 
+ // Notifies the delegate that section and object changes are about to be processed and notifications will be sent. 
+ - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+ [self.tableView beginUpdates];
+ }
+ 
+ - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+ // Update the table view appropriately.
+ }
+ 
+ - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+ // Update the table view appropriately.
+ }
+ 
+ - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+ [self.tableView endUpdates];
+ } 
  */
 
 
 #pragma mark -
-#pragma mark Memory management
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-	// Relinquish ownership of any cached data, images, etc that aren't in use.
+#pragma mark AddViewControllerDelegate methods
+- (void)addViewController:(AddViewController *)controller didFinishWithSave:(BOOL)save {
+    
+    if (save) {
+        NSNotificationCenter *dnc = [NSNotificationCenter defaultCenter];
+        // register rootViewController to be notified of NSManagedObjectContextDidSaveNotification
+        // if self is notified, call addControllerContextDidSave:
+        [dnc addObserver:self 
+                selector:@selector(addControllerContextDidSave:)
+                    name:NSManagedObjectContextDidSaveNotification 
+                  object:self.addingManagedObjectContext];
+        NSError *error;
+        if (![self.addingManagedObjectContext save:&error]) {
+            // Add real error handling code here.
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+        [dnc removeObserver:self
+                       name:NSManagedObjectContextDidSaveNotification
+                     object:self.addingManagedObjectContext];
+    }
+    self.addingManagedObjectContext = nil;
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 
-- (void)dealloc {
-	[fetchedResultsController release];
-	[managedObjectContext release];
-    [super dealloc];
-}
 
+
+#pragma mark Notification handling
+
+-(void)addControllerContextDidSave:(NSNotification *)saveNotification {
+    NSManagedObjectContext *context = [fetchedResultsController managedObjectContext];
+    // Merging changes causes the fetched results controller to update its results
+    [context mergeChangesFromContextDidSaveNotification:saveNotification];
+}
 
 @end
 
