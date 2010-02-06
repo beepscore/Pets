@@ -13,8 +13,10 @@
 {
 }
 
-@property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * animalType;
 @property (nonatomic, retain) NSString * breed;
+@property (nonatomic, retain) NSDate * dateOfBirth;
+@property (nonatomic, retain) NSString * name;
 
 @end
 

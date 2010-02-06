@@ -103,11 +103,10 @@
 // TODO: Add row for species here
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return 4;
 }
 
-
-// TODO:  Add case for species here
+// TODO: Use date formatter
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -126,9 +125,17 @@
             cell.detailTextLabel.text = pet.name;
             break;
         case 1:
+            cell.textLabel.text = @"Animal Type";
+            cell.detailTextLabel.text = pet.animalType;
+            break;
+        case 2:
             cell.textLabel.text = @"Breed";
             cell.detailTextLabel.text = pet.breed;
             break;
+//        case 3:
+//            cell.textLabel.text = @"Date of Birth";
+//            cell.detailTextLabel.text = [pet.dateOfBirth description];
+//            break;
     }
     return cell;
 }
@@ -148,10 +155,20 @@
         }
         break;
         case 1: {
+            controller.editedFieldKey = @"animalType";
+            controller.editedFieldName = NSLocalizedString(@"animalType", @"display name for animal type");
+        }
+            break;
+        case 2: {
             controller.editedFieldKey = @"breed";
             controller.editedFieldName = NSLocalizedString(@"breed", @"display name for breed");
         }
             break;
+//        case 3: {
+//            controller.editedFieldKey = @"dateOfBirth";
+//            controller.editedFieldName = NSLocalizedString(@"dateOfBirth", @"display name for date of birth");
+//        }
+//            break;
     }
     [self.navigationController pushViewController:controller animated:YES];
     [controller release];
