@@ -89,15 +89,15 @@
 	switch (indexPath.row) {
         case 0:
             cell.textLabel.text = @"Name";
-            cell.detailTextLabel.text = pet.name;
+            cell.detailTextLabel.text = self.pet.name;
             break;
         case 1:
             cell.textLabel.text = @"Animal Type";
-            cell.detailTextLabel.text = pet.animalType;
+            cell.detailTextLabel.text = self.pet.animalType;
             break;
         case 2:
             cell.textLabel.text = @"Breed";
-            cell.detailTextLabel.text = pet.breed;
+            cell.detailTextLabel.text = self.pet.breed;
             break;
         case 3:
             // Ref http://developer.apple.com/iphone/library/documentation/DataManagement/Conceptual/iPhoneCoreData01/Articles/04_Adding.html
@@ -109,7 +109,7 @@
                 [dateFormatter setTimeStyle:NSDateFormatterNoStyle];                
                 [dateFormatter setDateStyle:NSDateFormatterShortStyle];
             }
-            cell.detailTextLabel.text = [dateFormatter stringFromDate:pet.dateOfBirth];
+            cell.detailTextLabel.text = [dateFormatter stringFromDate:self.pet.dateOfBirth];
             [dateFormatter release];
             break;
     }

@@ -23,10 +23,10 @@
     
     // Override point for customization after app launch    
 
-	RootViewController *rootViewController = (RootViewController *)[navigationController topViewController];
+	RootViewController *rootViewController = (RootViewController *)[self.navigationController topViewController];
 	rootViewController.managedObjectContext = self.managedObjectContext;
 	
-	[window addSubview:[navigationController view]];
+	[window addSubview:[self.navigationController view]];
     [window makeKeyAndVisible];
 }
 

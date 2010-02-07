@@ -43,9 +43,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    textField.text = [editedObject valueForKey:editedFieldKey];
-    textField.placeholder = self.title;
-    [textField becomeFirstResponder];
+    self.textField.text = [editedObject valueForKey:editedFieldKey];
+    self.textField.placeholder = self.title;
+    [self.textField becomeFirstResponder];
 }
 
 
