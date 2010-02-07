@@ -43,7 +43,20 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.textField.text = [editedObject valueForKey:editedFieldKey];
+    if (@"dateOfBirth" == editedFieldKey) {
+        
+        NSDateFormatter *dateFormatter = nil;
+        if (dateFormatter == nil) {
+            dateFormatter = [[NSDateFormatter alloc] init];                
+            [dateFormatter setTimeStyle:NSDateFormatterNoStyle];                
+            [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+        }
+        self.textField.text = [dateFormatter stringFromDate:[editedObject valueForKey:editedFieldKey]];
+        [dateFormatter release];
+        
+    } else {
+        self.textField.text = [editedObject valueForKey:editedFieldKey];
+    }
     self.textField.placeholder = self.title;
     [self.textField becomeFirstResponder];
 }
