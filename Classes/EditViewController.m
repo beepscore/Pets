@@ -17,19 +17,9 @@
 @synthesize editedFieldName;
 
 
-/*
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
-
-
 - (void)viewDidLoad {
-
+    
+    NSLog(@"in EditViewController viewDidLoad");
     // Set the title to the user-visible name of the field
     self.title = editedFieldName;
     
@@ -42,9 +32,9 @@
     [saveButton release];
     
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] 
-                                   initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                   target:self
-                                   action:@selector(cancel)];
+                                     initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                     target:self
+                                     action:@selector(cancel)];
     self.navigationItem.leftBarButtonItem = cancelButton;
     [cancelButton release];
 }
@@ -57,15 +47,6 @@
     textField.placeholder = self.title;
     [textField becomeFirstResponder];
 }
-
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
 
 
 #pragma mark Memory management
@@ -105,8 +86,22 @@
     // Don't pass current value to the edited object, just pop
     [self.navigationController popViewControllerAnimated:YES];   
 }
+
 - (void)save {
-    [editedObject setValue:textField.text forKey:editedFieldKey];
+    if (@"dateOfBirth" == editedFieldKey) {
+        
+        NSDateFormatter *dateFormatter = nil;
+        if (dateFormatter == nil) {
+            dateFormatter = [[NSDateFormatter alloc] init];                
+            [dateFormatter setTimeStyle:NSDateFormatterNoStyle];                
+            [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+        }
+        [editedObject setValue:[dateFormatter dateFromString:self.textField.text] forKey:editedFieldKey];
+        [dateFormatter release];
+        
+    } else {
+        [editedObject setValue:self.textField.text forKey:editedFieldKey];
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 @end

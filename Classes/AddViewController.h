@@ -21,8 +21,7 @@
 }
 
 // !!!!:delegate property always uses assign, not retain, to avoid circular retain.
-// Instead, the delegate object will retain the object it is a delegate of,
-// the AddViewController instance.
+// Instead, the delegate object will retain the object it is a delegate of
 @property (nonatomic, assign) id <AddViewControllerDelegate> delegate;
 
 // this action isn't in a nib file, so we can just use type void instead of IBAction

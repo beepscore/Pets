@@ -14,19 +14,11 @@
 
 @synthesize pet;
 
-/*
- - (id)initWithStyle:(UITableViewStyle)style {
- // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
- if (self = [super initWithStyle:style]) {
- }
- return self;
- }
- */
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    NSLog(@"in DetailViewController viewDidLoad");
+
     // Configure the title, title bar, and table view
     self.title = @"Pet Details";
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -57,29 +49,6 @@
     self.navigationItem.rightBarButtonItem.enabled = [self.pet validateForUpdate:NULL];
 }
 
-/*
- - (void)viewDidAppear:(BOOL)animated {
- [super viewDidAppear:animated];
- }
- */
-/*
- - (void)viewWillDisappear:(BOOL)animated {
- [super viewWillDisappear:animated];
- }
- */
-/*
- - (void)viewDidDisappear:(BOOL)animated {
- [super viewDidDisappear:animated];
- }
- */
-
-/*
- // Override to allow orientations other than the default portrait orientation.
- - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
- // Return YES for supported orientations
- return (interfaceOrientation == UIInterfaceOrientationPortrait);
- }
- */
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
@@ -100,13 +69,11 @@
     return 1;
 }
 
-// TODO: Add row for species here
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 4;
 }
 
-// TODO: Use date formatter
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -132,17 +99,26 @@
             cell.textLabel.text = @"Breed";
             cell.detailTextLabel.text = pet.breed;
             break;
-//        case 3:
-//            cell.textLabel.text = @"Date of Birth";
-//            cell.detailTextLabel.text = [pet.dateOfBirth description];
-//            break;
+        case 3:
+            // Ref http://developer.apple.com/iphone/library/documentation/DataManagement/Conceptual/iPhoneCoreData01/Articles/04_Adding.html
+            cell.textLabel.text = @"Date of Birth";
+            
+            NSDateFormatter *dateFormatter = nil;
+            if (dateFormatter == nil) {
+                dateFormatter = [[NSDateFormatter alloc] init];                
+                [dateFormatter setTimeStyle:NSDateFormatterNoStyle];                
+                [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+            }
+            cell.detailTextLabel.text = [dateFormatter stringFromDate:pet.dateOfBirth];
+            [dateFormatter release];
+            break;
     }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.editing) return;
-
+    
     EditViewController *controller = [[EditViewController alloc] 
                                       initWithNibName:@"EditViewController"
                                       bundle:nil];
@@ -153,7 +129,7 @@
             controller.editedFieldKey = @"name";
             controller.editedFieldName = NSLocalizedString(@"name", @"display name for name");
         }
-        break;
+            break;
         case 1: {
             controller.editedFieldKey = @"animalType";
             controller.editedFieldName = NSLocalizedString(@"animalType", @"display name for animal type");
@@ -164,55 +140,16 @@
             controller.editedFieldName = NSLocalizedString(@"breed", @"display name for breed");
         }
             break;
-//        case 3: {
-//            controller.editedFieldKey = @"dateOfBirth";
-//            controller.editedFieldName = NSLocalizedString(@"dateOfBirth", @"display name for date of birth");
-//        }
-//            break;
+        case 3: {
+            controller.editedFieldKey = @"dateOfBirth";
+            controller.editedFieldName = NSLocalizedString(@"dateOfBirth", @"display name for date of birth");
+        }
+            break;
     }
     [self.navigationController pushViewController:controller animated:YES];
     [controller release];
 }
 
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- 
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
- }   
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }   
- }
- */
-
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
 
 // Don't change appearance of cell while editing
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView
@@ -230,7 +167,6 @@ shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     [pet release], pet = nil;
     [super dealloc];
 }
-
 
 @end
 
