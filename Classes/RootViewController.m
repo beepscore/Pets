@@ -9,6 +9,7 @@
 #import "RootViewController.h"
 #import "DetailViewController.h"
 #import "Pet.h"
+#import "BSGlobalValues.h"
 
 @implementation RootViewController
 
@@ -37,7 +38,7 @@
 		 
 		 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
 		 */
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		DLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		abort();
 	}
 }
@@ -150,7 +151,7 @@
     
 	// Configure the cell.
 	NSManagedObject *managedObject = [fetchedResultsController objectAtIndexPath:indexPath];
-	cell.textLabel.text = [[managedObject valueForKey:@"name"] description];
+	cell.textLabel.text = [[managedObject valueForKey:BSKeyName] description];
 	
     return cell;
 }
@@ -194,7 +195,7 @@
 			 
 			 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
 			 */
-			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+			DLog(@"Unresolved error %@, %@", error, [error userInfo]);
 			abort();
 		}
 	}   
@@ -229,7 +230,7 @@
 	[fetchRequest setFetchBatchSize:20];
 	
 	// Edit the sort key as appropriate.
-	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:NO];
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:BSKeyName ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	
 	[fetchRequest setSortDescriptors:sortDescriptors];
@@ -292,7 +293,7 @@
         NSError *error;
         if (![self.addingManagedObjectContext save:&error]) {
             // Add real error handling code here.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
         }
         [dnc removeObserver:self
                        name:NSManagedObjectContextDidSaveNotification

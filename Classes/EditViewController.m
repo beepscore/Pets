@@ -7,7 +7,7 @@
 //
 
 #import "EditViewController.h"
-
+#import "BSGlobalValues.h"
 
 @implementation EditViewController
 
@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     
-    NSLog(@"in EditViewController viewDidLoad");
+    DLog(@"in EditViewController viewDidLoad");
     // Set the title to the user-visible name of the field
     self.title = editedFieldName;
     
@@ -43,7 +43,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (@"dateOfBirth" == editedFieldKey) {
+    if (BSKeyDateOfBirth == editedFieldKey) {
         
         NSDateFormatter *dateFormatter = nil;
         if (dateFormatter == nil) {
@@ -101,7 +101,7 @@
 }
 
 - (void)save {
-    if (@"dateOfBirth" == editedFieldKey) {
+    if (BSKeyDateOfBirth == editedFieldKey) {
         
         NSDateFormatter *dateFormatter = nil;
         if (dateFormatter == nil) {

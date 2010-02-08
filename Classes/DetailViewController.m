@@ -9,6 +9,7 @@
 #import "DetailViewController.h"
 #import "Pet.h"
 #import "EditViewController.h"
+#import "BSGlobalValues.h"
 
 @implementation DetailViewController
 
@@ -17,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"in DetailViewController viewDidLoad");
+    DLog(@"in DetailViewController viewDidLoad");
 
     // Configure the title, title bar, and table view
     self.title = @"Pet Details";
@@ -126,23 +127,23 @@
     controller.editedObject = self.pet;
     switch (indexPath.row) {
         case 0: {
-            controller.editedFieldKey = @"name";
-            controller.editedFieldName = NSLocalizedString(@"name", @"display name for name");
+            controller.editedFieldKey = BSKeyName;
+            controller.editedFieldName = NSLocalizedString(BSKeyName, @"display name for name");
         }
             break;
         case 1: {
-            controller.editedFieldKey = @"animalType";
-            controller.editedFieldName = NSLocalizedString(@"animalType", @"display name for animal type");
+            controller.editedFieldKey = BSKeyAnimalType;
+            controller.editedFieldName = NSLocalizedString(BSKeyAnimalType, @"display name for animal type");
         }
             break;
         case 2: {
-            controller.editedFieldKey = @"breed";
-            controller.editedFieldName = NSLocalizedString(@"breed", @"display name for breed");
+            controller.editedFieldKey = BSKeyBreed;
+            controller.editedFieldName = NSLocalizedString(BSKeyBreed, @"display name for breed");
         }
             break;
         case 3: {
-            controller.editedFieldKey = @"dateOfBirth";
-            controller.editedFieldName = NSLocalizedString(@"dateOfBirth", @"display name for date of birth");
+            controller.editedFieldKey = BSKeyDateOfBirth;
+            controller.editedFieldName = NSLocalizedString(BSKeyDateOfBirth, @"display name for date of birth");
         }
             break;
     }

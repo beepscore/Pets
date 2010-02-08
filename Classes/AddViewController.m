@@ -8,6 +8,7 @@
 
 #import "AddViewController.h"
 #import "Pet.h"
+#import "BSGlobalValues.h"
 
 @implementation AddViewController
 
@@ -17,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"in AddViewController viewDidLoad");
+    DLog(@"in AddViewController viewDidLoad");
     
     // Override the DetailViewController viewDidLoad with different navigation bar items and title
     self.title = @"New Pet";
