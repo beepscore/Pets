@@ -43,7 +43,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (BSKeyDateOfBirth == editedFieldKey) {
+    if (BSKeyDateOfBirth == self.editedFieldKey) {
         
         NSDateFormatter *dateFormatter = nil;
         if (dateFormatter == nil) {
@@ -51,11 +51,11 @@
             [dateFormatter setTimeStyle:NSDateFormatterNoStyle];                
             [dateFormatter setDateStyle:NSDateFormatterShortStyle];
         }
-        self.textField.text = [dateFormatter stringFromDate:[editedObject valueForKey:editedFieldKey]];
+        self.textField.text = [dateFormatter stringFromDate:[self.editedObject valueForKey:self.editedFieldKey]];
         [dateFormatter release];
         
     } else {
-        self.textField.text = [editedObject valueForKey:editedFieldKey];
+        self.textField.text = [self.editedObject valueForKey:self.editedFieldKey];
     }
     self.textField.placeholder = self.title;
     [self.textField becomeFirstResponder];
@@ -109,11 +109,11 @@
             [dateFormatter setTimeStyle:NSDateFormatterNoStyle];                
             [dateFormatter setDateStyle:NSDateFormatterShortStyle];
         }
-        [editedObject setValue:[dateFormatter dateFromString:self.textField.text] forKey:editedFieldKey];
+        [self.editedObject setValue:[dateFormatter dateFromString:self.textField.text] forKey:self.editedFieldKey];
         [dateFormatter release];
         
     } else {
-        [editedObject setValue:self.textField.text forKey:editedFieldKey];
+        [self.editedObject setValue:self.textField.text forKey:self.editedFieldKey];
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
