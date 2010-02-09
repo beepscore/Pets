@@ -8,6 +8,7 @@
 
 #import "EditViewController.h"
 #import "BSGlobalValues.h"
+#import "Pet.h"
 
 @implementation EditViewController
 
@@ -101,6 +102,14 @@
 }
 
 - (void)save {
+    
+    // this doesn't work for new instance because value is null
+    // if ([editedObject valueForKey:editedFieldKey] isKindOfClass:[NSDate class]]) {
+    
+    // this doesn't work because Pet class doesn't recognize selector
+    // DLog(@"%@", [[Pet performSelector:NSSelectorFromString(editedFieldKey)] isKindOfClass:[NSDate class]]);        
+    // if ([[Pet performSelector:NSSelectorFromString(editedFieldKey)] isKindOfClass:[NSDate class]]) {
+    
     if (BSKeyDateOfBirth == editedFieldKey) {
         
         NSDateFormatter *dateFormatter = nil;
