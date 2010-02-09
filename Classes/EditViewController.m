@@ -101,17 +101,31 @@
     [self.navigationController popViewControllerAnimated:YES];   
 }
 
+// returns YES if the attribute of the entity corresponding to the text field is a date type.
+- (BOOL)attributeIsDateForObject:(NSManagedObject *)aManagedObject Key:(NSString *)aKey {
+    
+    NSEntityDescription *currentEntityDescription = [aManagedObject entity];
+    NSDictionary *currentEntityPropertiesDictionary = [currentEntityDescription propertiesByName];
+    NSAttributeDescription *currentAttributeDescription = [currentEntityPropertiesDictionary valueForKey:aKey];
+    NSAttributeType currentAttributeType = [currentAttributeDescription attributeType];
+    return (NSDateAttributeType == currentAttributeType);
+}
+
 - (void)save {
     
+    // this works, but matches only one key
+    // if (BSKeyDateOfBirth == self.editedFieldKey) {
+    // ====
     // this doesn't work for new instance because value is null
     // if ([editedObject valueForKey:editedFieldKey] isKindOfClass:[NSDate class]]) {
-    
+    // ====   
     // this doesn't work because Pet class doesn't recognize selector
-    // DLog(@"%@", [[Pet performSelector:NSSelectorFromString(editedFieldKey)] isKindOfClass:[NSDate class]]);        
     // if ([[Pet performSelector:NSSelectorFromString(editedFieldKey)] isKindOfClass:[NSDate class]]) {
+    // if (  NSEntityDescription propertiesByName  NSAttributeDescription    
     
-    if (BSKeyDateOfBirth == editedFieldKey) {
-        
+    // if the attribute is a date
+    if ([self attributeIsDateForObject:self.editedObject Key:self.editedFieldKey]) {
+        DLog(@"the test works!");
         NSDateFormatter *dateFormatter = nil;
         if (dateFormatter == nil) {
             dateFormatter = [[NSDateFormatter alloc] init];                
