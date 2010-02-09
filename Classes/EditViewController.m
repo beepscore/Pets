@@ -41,14 +41,15 @@
 }
 
 
-
 // returns YES if the attribute of the object is a date type.
-- (BOOL)attributeIsDateForObject:(NSManagedObject *)aManagedObject Key:(NSString *)aKey {
+- (BOOL)attributeIsDateForObject:(NSManagedObject *)aManagedObject key:(NSString *)aKey {
     
     NSEntityDescription *currentEntityDescription = [aManagedObject entity];
     NSDictionary *currentEntityPropertiesDictionary = [currentEntityDescription propertiesByName];
     NSAttributeDescription *currentAttributeDescription = [currentEntityPropertiesDictionary valueForKey:aKey];
+    // note NSAttributeType is NSUInteger, not a pointer.  Don't use *
     NSAttributeType currentAttributeType = [currentAttributeDescription attributeType];
+    // DLog(@"%@", (NSDateAttributeType == currentAttributeType)? @"Attribute is a date" : @"Attribute is not a date");
     return (NSDateAttributeType == currentAttributeType);
 }
 
@@ -67,7 +68,7 @@
     // if (  NSEntityDescription propertiesByName  NSAttributeDescription    
     
     // if the attribute of the object corresponding to the text field is a date type, convert date to string
-    if ([self attributeIsDateForObject:self.editedObject Key:self.editedFieldKey]) {        
+    if ([self attributeIsDateForObject:self.editedObject key:self.editedFieldKey]) {        
         NSDateFormatter *dateFormatter = nil;
         if (dateFormatter == nil) {
             dateFormatter = [[NSDateFormatter alloc] init];                
@@ -126,7 +127,7 @@
 
 - (void)save {
     
-    if ([self attributeIsDateForObject:self.editedObject Key:self.editedFieldKey]) {
+    if ([self attributeIsDateForObject:self.editedObject key:self.editedFieldKey]) {
         NSDateFormatter *dateFormatter = nil;
         if (dateFormatter == nil) {
             dateFormatter = [[NSDateFormatter alloc] init];                
