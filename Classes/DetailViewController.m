@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    DLog(@"in DetailViewController viewDidLoad");
+    DLog();
 
     // Configure the title, title bar, and table view
     self.title = @"Pet Details";

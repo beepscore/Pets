@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     
-    DLog(@"in EditViewController viewDidLoad");
+    DLog();
     // Set the title to the user-visible name of the field
     self.title = editedFieldName;
     

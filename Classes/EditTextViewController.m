@@ -17,15 +17,19 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-    DLog(@"in EditTextViewController viewDidLoad");
+    DLog();
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.textField.text = [self.editedObject valueForKey:self.editedFieldKey];
-    self.textField.placeholder = self.title;
-    [self.textField becomeFirstResponder];
+    NSString *textFromEditedObject = [self.editedObject valueForKey:self.editedFieldKey]; 
+    if (nil == textFromEditedObject) {
+        self.textField.placeholder = self.editedFieldName;
+    } else {
+        self.textField.text = textFromEditedObject;
+    }
+    //[self.textField becomeFirstResponder];
 }
 
 
@@ -38,6 +42,7 @@
 }
 
 - (void)setView:(UIView *)newView {
+    DLog();
     if (nil == newView) {
         self.textField = nil;
     }
