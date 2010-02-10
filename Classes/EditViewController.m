@@ -12,7 +12,6 @@
 
 @implementation EditViewController
 
-@synthesize textField;
 @synthesize editedObject;
 @synthesize editedFieldKey;
 @synthesize editedFieldName;
@@ -56,33 +55,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    // this works, but matches only one key
-    // if (BSKeyDateOfBirth == self.editedFieldKey) {
-    // ====
-    // this doesn't work for new instance because value is null
-    // if ([editedObject valueForKey:editedFieldKey] isKindOfClass:[NSDate class]]) {
-    // ====   
-    // this doesn't work because Pet class doesn't recognize selector
-    // if ([[Pet performSelector:NSSelectorFromString(editedFieldKey)] isKindOfClass:[NSDate class]]) {
-    // if (  NSEntityDescription propertiesByName  NSAttributeDescription    
-    
-    // if the attribute of the object corresponding to the text field is a date type, convert date to string
-    if ([self attributeIsDateForObject:self.editedObject key:self.editedFieldKey]) {        
-        NSDateFormatter *dateFormatter = nil;
-        if (dateFormatter == nil) {
-            dateFormatter = [[NSDateFormatter alloc] init];                
-            [dateFormatter setTimeStyle:NSDateFormatterNoStyle];                
-            [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-        }
-        self.textField.text = [dateFormatter stringFromDate:[self.editedObject valueForKey:self.editedFieldKey]];
-        [dateFormatter release];
-        
-    } else {
-        self.textField.text = [self.editedObject valueForKey:self.editedFieldKey];
-    }
-    self.textField.placeholder = self.title;
-    [self.textField becomeFirstResponder];
+
 }
 
 
@@ -95,22 +68,17 @@
 }
 
 - (void)setView:(UIView *)newView {
-    if (nil == newView) {
-        self.textField = nil;
-    }
     [super setView:newView];
 }
 
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
-    [textField release], textField = nil;
     [editedObject release], editedObject = nil;
     [editedFieldKey release], editedFieldKey = nil;
     [editedFieldName release], editedFieldName = nil;
 }
 
 - (void)dealloc {
-    [textField release], textField = nil;
     [editedObject release], editedObject = nil;
     [editedFieldKey release], editedFieldKey = nil;
     [editedFieldName release], editedFieldName = nil;
@@ -124,22 +92,4 @@
     [self.navigationController popViewControllerAnimated:YES];   
 }
 
-
-- (void)save {
-    
-    if ([self attributeIsDateForObject:self.editedObject key:self.editedFieldKey]) {
-        NSDateFormatter *dateFormatter = nil;
-        if (dateFormatter == nil) {
-            dateFormatter = [[NSDateFormatter alloc] init];                
-            [dateFormatter setTimeStyle:NSDateFormatterNoStyle];                
-            [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-        }
-        [self.editedObject setValue:[dateFormatter dateFromString:self.textField.text] forKey:self.editedFieldKey];
-        [dateFormatter release];
-        
-    } else {
-        [self.editedObject setValue:self.textField.text forKey:self.editedFieldKey];
-    }
-    [self.navigationController popViewControllerAnimated:YES];
-}
 @end

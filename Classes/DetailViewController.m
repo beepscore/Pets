@@ -6,15 +6,16 @@
 //  Copyright 2010 Beepscore LLC. All rights reserved.
 //
 
-#import "DetailViewController.h"
-#import "Pet.h"
-#import "EditViewController.h"
 #import "BSGlobalValues.h"
+#import "DetailViewController.h"
+#import "EditTextViewController.h"
+#import "EditDateViewController.h"
+#import "EditViewController.h"
+#import "Pet.h"
 
 @implementation DetailViewController
 
 @synthesize pet;
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -120,28 +121,41 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.editing) return;
     
-    EditViewController *controller = [[EditViewController alloc] 
-                                      initWithNibName:@"EditViewController"
-                                      bundle:nil];
+    EditViewController *controller = nil;
     
-    controller.editedObject = self.pet;
     switch (indexPath.row) {
         case 0: {
+            controller = [[EditTextViewController alloc] 
+                                                  initWithNibName:@"EditTextViewController"
+                                                  bundle:nil];
+            controller.editedObject = self.pet;
             controller.editedFieldKey = BSKeyName;
             controller.editedFieldName = NSLocalizedString(BSKeyName, @"display name for name");
         }
             break;
         case 1: {
+            controller = [[EditTextViewController alloc] 
+                                                  initWithNibName:@"EditTextViewController"
+                                                  bundle:nil];
+            controller.editedObject = self.pet;            
             controller.editedFieldKey = BSKeyAnimalType;
             controller.editedFieldName = NSLocalizedString(BSKeyAnimalType, @"display name for animal type");
         }
             break;
         case 2: {
+            controller = [[EditTextViewController alloc] 
+                                                  initWithNibName:@"EditTextViewController"
+                                                  bundle:nil];
+            controller.editedObject = self.pet;            
             controller.editedFieldKey = BSKeyBreed;
             controller.editedFieldName = NSLocalizedString(BSKeyBreed, @"display name for breed");
         }
             break;
         case 3: {
+            controller = [[EditDateViewController alloc] 
+                                                  initWithNibName:@"EditDateViewController"
+                                                  bundle:nil];
+            controller.editedObject = self.pet;            
             controller.editedFieldKey = BSKeyDateOfBirth;
             controller.editedFieldName = NSLocalizedString(BSKeyDateOfBirth, @"display name for date of birth");
         }
