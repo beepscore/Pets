@@ -23,13 +23,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    NSString *textFromEditedObject = [self.editedObject valueForKey:self.editedFieldKey]; 
-    if (nil == textFromEditedObject) {
-        self.textField.placeholder = self.editedFieldName;
-    } else {
-        self.textField.text = textFromEditedObject;
-    }
-    //[self.textField becomeFirstResponder];
+    self.textField.placeholder = self.editedFieldName;
+    // if valueForKey is nil, placeholder will show instead
+    self.textField.text = [self.editedObject valueForKey:self.editedFieldKey];
 }
 
 
@@ -64,6 +60,17 @@
     
     [self.editedObject setValue:self.textField.text forKey:self.editedFieldKey];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark textField delegate methods
+// When user presses Return (or Done) key, resignFirstResponder will dismiss the keyboard
+- (BOOL)textFieldShouldReturn:(UITextField *)aTextField {
+    [aTextField resignFirstResponder];
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)aTextField {
+    // do nothing.  Make user press save button
 }
 
 @end
