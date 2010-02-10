@@ -23,18 +23,25 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-//    self.textField.text = [self.editedObject valueForKey:self.editedFieldKey];
-//    self.textField.placeholder = self.title;
-//    [self.textField becomeFirstResponder];
+    NSDate *dateFromEditedObject = [self.editedObject valueForKey:self.editedFieldKey];
+    
+    if (nil == dateFromEditedObject) {
+        NSDate *dateNow = [[NSDate alloc] init];
+        self.datePicker.date = dateNow;
+        [dateNow release];
+    } else {
+        self.datePicker.date = dateFromEditedObject;
+    }
 }
+
 
 
 #pragma mark Memory management
 - (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
+    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
+    
+    // Release any cached data, images, etc that aren't in use.
 }
 
 - (void)setView:(UIView *)newView {
@@ -45,7 +52,7 @@
 }
 
 - (void)viewDidUnload {
-	// Release any retained subviews of the main view.
+    // Release any retained subviews of the main view.
     [datePicker release], datePicker = nil;
 }
 
