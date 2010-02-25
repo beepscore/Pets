@@ -6,16 +6,6 @@
 //  Copyright 2010 Beepscore LLC. All rights reserved.
 //
 
-// Ref http://www.cocoadev.com/index.pl?GlobalVariablesInCocoa
-
-
-// #define MAX_COUNT (100)
-
-extern NSString * const BSKeyAnimalType;
-extern NSString * const BSKeyBreed;
-extern NSString * const BSKeyDateOfBirth;
-extern NSString * const BSKeyName;
-
 #pragma mark -
 // Ref http://iphoneincubator.com/blog/debugging/the-evolution-of-a-replacement-for-nslog
 // Ref in Project/Edit Project Settings/Build/GCC 4.2 Preprocessing/Preprocessor macros add DEBUG=1

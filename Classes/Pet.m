@@ -8,6 +8,10 @@
 
 #import "Pet.h"
 
+NSString * const BSKeyAnimalType = @"animalType";
+NSString * const BSKeyBreed = @"breed";
+NSString * const BSKeyDateOfBirth = @"dateOfBirth";
+NSString * const BSKeyName = @"name";
 
 @implementation Pet 
 

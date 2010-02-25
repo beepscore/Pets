@@ -8,6 +8,10 @@
 
 #import <CoreData/CoreData.h>
 
+extern NSString * const BSKeyAnimalType;
+extern NSString * const BSKeyBreed;
+extern NSString * const BSKeyDateOfBirth;
+extern NSString * const BSKeyName;
 
 @interface Pet :  NSManagedObject  
 {
