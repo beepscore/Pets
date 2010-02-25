@@ -9,7 +9,7 @@
 #import "RootViewController.h"
 #import "DetailViewController.h"
 #import "Pet.h"
-#import "BSGlobalValues.h"
+#import "Debug.h"
 
 @implementation RootViewController
 

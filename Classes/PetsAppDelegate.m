@@ -8,7 +8,7 @@
 
 #import "PetsAppDelegate.h"
 #import "RootViewController.h"
-#import "BSGlobalValues.h"
+#import "Debug.h"
 
 
 @implementation PetsAppDelegate

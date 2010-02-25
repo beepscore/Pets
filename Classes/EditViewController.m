@@ -7,7 +7,7 @@
 //
 
 #import "EditViewController.h"
-#import "BSGlobalValues.h"
+#import "Debug.h"
 #import "Pet.h"
 
 @implementation EditViewController

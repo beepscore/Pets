@@ -6,7 +6,7 @@
 //  Copyright 2010 Beepscore LLC. All rights reserved.
 //
 
-#import "BSGlobalValues.h"
+#import "Debug.h"
 #import "EditDateViewController.h"
 
 

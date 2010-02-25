@@ -1,5 +1,5 @@
 //
-//  BSGlobalValues.h
+//  Debug.h
 //  Pets
 //
 //  Created by Steve Baker on 2/7/10.

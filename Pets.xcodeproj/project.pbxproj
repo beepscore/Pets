@@ -17,7 +17,6 @@
 		2899E5600DE3E45000AC0155 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E55F0DE3E45000AC0155 /* RootViewController.xib */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
-		DE5D324F111FD828001A980D /* BSGlobalValues.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5D324E111FD828001A980D /* BSGlobalValues.m */; };
 		DE61EE0311228CC900DC3893 /* EditTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61EE0111228CC900DC3893 /* EditTextViewController.m */; };
 		DE61EE0411228CC900DC3893 /* EditTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE61EE0211228CC900DC3893 /* EditTextViewController.xib */; };
 		DE61EE0911228D9800DC3893 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE61EE0811228D9800DC3893 /* EditViewController.m */; };
@@ -44,8 +43,7 @@
 		28C286E00D94DF7D0034E888 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Pets-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Pets-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		DE5D324D111FD828001A980D /* BSGlobalValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSGlobalValues.h; sourceTree = "<group>"; };
-		DE5D324E111FD828001A980D /* BSGlobalValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSGlobalValues.m; sourceTree = "<group>"; };
+		DE5D324D111FD828001A980D /* Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debug.h; sourceTree = "<group>"; };
 		DE61EE0011228CC900DC3893 /* EditTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditTextViewController.h; sourceTree = "<group>"; };
 		DE61EE0111228CC900DC3893 /* EditTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditTextViewController.m; sourceTree = "<group>"; };
 		DE61EE0211228CC900DC3893 /* EditTextViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = EditTextViewController.xib; path = Classes/EditTextViewController.xib; sourceTree = "<group>"; };
@@ -82,8 +80,7 @@
 			children = (
 				DEC77DFD111CBB3B00BD7D9A /* AddViewController.h */,
 				DEC77DFE111CBB3B00BD7D9A /* AddViewController.m */,
-				DE5D324D111FD828001A980D /* BSGlobalValues.h */,
-				DE5D324E111FD828001A980D /* BSGlobalValues.m */,
+				DE5D324D111FD828001A980D /* Debug.h */,
 				DEC77DF4111CAF0900BD7D9A /* DetailViewController.h */,
 				DEC77DF5111CAF0900BD7D9A /* DetailViewController.m */,
 				DE61EE6411229D2400DC3893 /* EditDateViewController.h */,
@@ -225,7 +222,6 @@
 				DE858122111CAB5400A69851 /* Pet.m in Sources */,
 				DEC77DF6111CAF0900BD7D9A /* DetailViewController.m in Sources */,
 				DEC77DFF111CBB3B00BD7D9A /* AddViewController.m in Sources */,
-				DE5D324F111FD828001A980D /* BSGlobalValues.m in Sources */,
 				DE61EE0311228CC900DC3893 /* EditTextViewController.m in Sources */,
 				DE61EE0911228D9800DC3893 /* EditViewController.m in Sources */,
 				DE61EE6711229D2400DC3893 /* EditDateViewController.m in Sources */,
