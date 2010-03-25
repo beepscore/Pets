@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "EditViewController.h"
 
-
 @interface EditDateViewController : EditViewController {
     UIDatePicker *datePicker;
 

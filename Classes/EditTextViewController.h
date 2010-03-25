@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "EditViewController.h"
 
-
 @interface EditTextViewController : EditViewController <UITextFieldDelegate> {
     UITextField *textField;
 }

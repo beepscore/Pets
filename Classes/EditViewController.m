@@ -8,7 +8,6 @@
 
 #import "EditViewController.h"
 #import "Debug.h"
-#import "Pet.h"
 
 @implementation EditViewController
 

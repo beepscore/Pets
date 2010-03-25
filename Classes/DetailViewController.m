@@ -10,7 +10,6 @@
 #import "DetailViewController.h"
 #import "EditTextViewController.h"
 #import "EditDateViewController.h"
-#import "EditViewController.h"
 #import "Pet.h"
 
 @implementation DetailViewController
