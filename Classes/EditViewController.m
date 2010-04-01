@@ -59,7 +59,7 @@
 	// Release any retained subviews of the main view.
     // Release any retained outlets
     // set properties to nil, which also releases them
-
+    [super viewDidUnload];
 }
 
 - (void)dealloc {
