@@ -54,6 +54,19 @@
 }
 
 
+// Ref http://developer.apple.com/mac/library/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmNibObjects.html
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+    // Release any retained outlets
+    // set properties to nil, which also releases them
+    self.editedObject = nil;
+    self.editedFieldKey = nil;
+    self.editedFieldName = nil;
+    
+    [super viewDidUnload];
+}
+
+
 - (void)dealloc {
     [editedObject release], editedObject = nil;
     [editedFieldKey release], editedFieldKey = nil;

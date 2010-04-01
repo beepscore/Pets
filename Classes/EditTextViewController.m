@@ -37,6 +37,7 @@
 	// Release any cached data, images, etc that aren't in use.
 }
 
+
 // Ref http://developer.apple.com/mac/library/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmNibObjects.html
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
@@ -48,7 +49,7 @@
 }
 
 - (void)dealloc {
-
+    [textField release], textField = nil;
     [super dealloc];
 }
 
@@ -59,12 +60,14 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
 #pragma mark textField delegate methods
 // When user presses Return (or Done) key, resignFirstResponder will dismiss the keyboard
 - (BOOL)textFieldShouldReturn:(UITextField *)aTextField {
     [aTextField resignFirstResponder];
     return YES;
 }
+
 
 - (void)textFieldDidEndEditing:(UITextField *)aTextField {
     // do nothing.  Make user press save button

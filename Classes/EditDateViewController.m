@@ -55,8 +55,9 @@
     [super viewDidUnload];
 }
 
-- (void)dealloc {
 
+- (void)dealloc {
+    [datePicker release], datePicker = nil;
     [super dealloc];
 }
 

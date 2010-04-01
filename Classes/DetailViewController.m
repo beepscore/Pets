@@ -60,6 +60,16 @@
 }
 
 
+// Ref http://developer.apple.com/mac/library/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmNibObjects.html
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+    // Release any retained outlets
+    // set properties to nil, which also releases them
+    self.pet = nil;
+    [super viewDidUnload];
+}
+
+
 - (void)dealloc {
     [pet release], pet = nil;
     [super dealloc];

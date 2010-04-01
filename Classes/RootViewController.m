@@ -82,11 +82,26 @@
 
 
 #pragma mark Memory management
-
 - (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-	// Relinquish ownership of any cached data, images, etc that aren't in use.
+	
+	// Release any cached data, images, etc that aren't in use.
 }
+
+
+// Ref http://developer.apple.com/mac/library/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmNibObjects.html
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+    // Release any retained outlets
+    // set properties to nil, which also releases them
+    self.fetchedResultsController = nil;
+    self.managedObjectContext = nil;
+    self.addingManagedObjectContext = nil;
+    
+    [super viewDidUnload];
+}
+
 
 - (void)dealloc {
 	[fetchedResultsController release], fetchedResultsController = nil;
