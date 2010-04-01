@@ -37,21 +37,18 @@
 	// Release any cached data, images, etc that aren't in use.
 }
 
-- (void)setView:(UIView *)newView {
-    DLog();
-    if (nil == newView) {
-        self.textField = nil;
-    }
-    [super setView:newView];
-}
-
+// Ref http://developer.apple.com/mac/library/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmNibObjects.html
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
-    [textField release], textField = nil;
+    // Release any retained outlets
+    // set properties to nil, which also releases them
+    self.textField = nil;
+    
+    [super viewDidUnload];
 }
 
 - (void)dealloc {
-    [textField release], textField = nil;
+
     [super dealloc];
 }
 

@@ -44,20 +44,19 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (void)setView:(UIView *)newView {
-    if (nil == newView) {
-        self.datePicker = nil;
-    }
-    [super setView:newView];
-}
 
+// Ref http://developer.apple.com/mac/library/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmNibObjects.html
 - (void)viewDidUnload {
-    // Release any retained subviews of the main view.
-    [datePicker release], datePicker = nil;
+	// Release any retained subviews of the main view.
+    // Release any retained outlets
+    // set properties to nil, which also releases them
+    self.datePicker = nil;
+    
+    [super viewDidUnload];
 }
 
 - (void)dealloc {
-    [datePicker release], datePicker = nil;
+
     [super dealloc];
 }
 
