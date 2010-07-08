@@ -10,9 +10,7 @@
 
 
 @interface EditViewController : UIViewController {
-    NSManagedObject *editedObject;
-    NSString *editedFieldKey;
-    NSString *editedFieldName;
+    // Xcode will automatically add instance variables to back properties
 }
 
 @property (nonatomic, retain) NSManagedObject *editedObject;

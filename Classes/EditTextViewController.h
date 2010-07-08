@@ -10,7 +10,7 @@
 #import "EditViewController.h"
 
 @interface EditTextViewController : EditViewController <UITextFieldDelegate> {
-    UITextField *textField;
+    // Xcode will automatically add instance variables to back properties
 }
 
 @property (nonatomic, retain) IBOutlet UITextField *textField;

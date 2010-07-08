@@ -9,15 +9,14 @@
 
 @interface RootViewController : UITableViewController 
 <NSFetchedResultsControllerDelegate, AddViewControllerDelegate> {
-	NSFetchedResultsController *fetchedResultsController;
-	NSManagedObjectContext *managedObjectContext;
-    // add another MOC for adding a pet
-	NSManagedObjectContext *addingManagedObjectContext;
+    // Xcode will automatically add instance variables to back properties
 }
 
 // These properties have setters.  The app delegate sets the rootViewController.managedObjectContext.
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
+// add another MOC for adding a pet
 @property (nonatomic, retain) NSManagedObjectContext *addingManagedObjectContext;
 
 @end

@@ -10,9 +10,9 @@
 #import "EditViewController.h"
 
 @interface EditDateViewController : EditViewController {
-    UIDatePicker *datePicker;
-
+    // Xcode will automatically add instance variables to back properties
 }
+
 @property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;
 
 - (void)save;

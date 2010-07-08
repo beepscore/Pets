@@ -8,6 +8,9 @@
 
 @interface PetsAppDelegate : NSObject <UIApplicationDelegate> {
 #pragma mark Instance variables
+    // Xcode will automatically add instance variables to back properties that are synthesized.
+
+    // These three instance variables have properties, but aren't synthesized in .m file.  They will be lazy-loaded.
     // Managed Object Model (MOM) - object representation of the database schema.
     // The database schema describes entities and relationships
     NSManagedObjectModel *managedObjectModel;
@@ -17,19 +20,16 @@
     // Persistent Store Coordinator (PSC) manages Persistent Object Store (POS).
     // Gets objects in and out of database
     NSPersistentStoreCoordinator *persistentStoreCoordinator;
-
-    UIWindow *window;
-    UINavigationController *navigationController;
 }
 
 #pragma mark Properties
-// These three readonly properties aren't synthesized in .m file.  They will be lazy-loaded.
+@property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
+
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
 
 - (NSString *)applicationDocumentsDirectory;
 

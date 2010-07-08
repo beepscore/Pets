@@ -11,7 +11,7 @@
 @class Pet;
 
 @interface DetailViewController : UITableViewController {
-    Pet *pet;
+    // Xcode will automatically add instance variables to back properties
 }
 
 @property (nonatomic, retain) Pet *pet;
