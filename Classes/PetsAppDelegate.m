@@ -16,7 +16,7 @@
 @interface PetsAppDelegate ()
 
 - (void) saveManagedObjectContext:(NSManagedObjectContext *)aManagedObjectContext;
-- (void)handleManagedObjectContextSaveError:(NSError *)anError;
+- (void) handleManagedObjectContextSaveError:(NSError *)anError;
 - (void) handlePersistentStoreCoordinatorAddError:(NSError *)anError;
 
 @end
@@ -166,7 +166,7 @@
 }
 
 
-- (void)handlePersistentStoreCoordinatorAddError:(NSError *)anError
+- (void) handlePersistentStoreCoordinatorAddError:(NSError *)anError
 {
     DLog(@"Unresolved error %@, %@", anError, [anError userInfo]);
     
