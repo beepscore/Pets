@@ -10,6 +10,17 @@
 #import "RootViewController.h"
 #import "Debug.h"
 
+// declare anonymous category for "private" methods, avoid showing in .h file
+// Note in Objective C no method is private, it can be called from elsewhere.
+// Ref http://stackoverflow.com/questions/1052233/iphone-obj-c-anonymous-category-or-private-category
+@interface PetsAppDelegate ()
+
+- (void) saveManagedObjectContext:(NSManagedObjectContext *)aManagedObjectContext;
+- (void)handleManagedObjectContextSaveError:(NSError *)anError;
+- (void) handlePersistentStoreCoordinatorAddError:(NSError *)anError;
+
+@end
+
 
 @implementation PetsAppDelegate
 
@@ -34,23 +45,17 @@
 /**
  applicationWillTerminate: saves changes in the application's managed object context before the application terminates.
  */
-- (void)applicationWillTerminate:(UIApplication *)application {
-	
-    NSError *error = nil;
-    if (managedObjectContext != nil) {
-        // if we have changes, call save, pass pointer (address) to store any error(s), get BOOL result.
-        // - (BOOL)save:(NSError **)errorPointer returns YES if successful, otherwise NO
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-			/*
-			 Replace this implementation with code to handle the error appropriately.
-			 
-			 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-			 */
-			DLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            // if abort() runs, the console will show something like Program received signal: "SIGABORT".
-			abort();
-        } 
-    }
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+	[self saveManagedObjectContext:managedObjectContext];
+}
+
+
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    // for iOS4, implement applicationDidEnterBackground: similar to applicationWillTerminate:
+    // ref http://stackoverflow.com/questions/3106732/ios-4-core-data-any-changes-with-multitasking
+	[self saveManagedObjectContext:managedObjectContext];
 }
 
 
@@ -108,22 +113,72 @@
 	
 	NSError *error = nil;
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
-		/*
-		 Replace this implementation with code to handle the error appropriately.
-		 
-		 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-		 
-		 Typical reasons for an error here include:
-		 * The persistent store is not accessible
-		 * The schema for the persistent store is incompatible with current managed object model
-		 Check the error message to determine what the actual problem was.
-		 */
-		DLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		abort();
-    }    
-	
+    if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) 
+    {
+        //	Typical reasons for an error here include:
+        //	The persistent store is not accessible
+        //	The schema for the persistent store is incompatible with current managed object model
+        //	Check the error message to determine what the actual problem was.
+        
+        // handle error
+        [self handlePersistentStoreCoordinatorAddError:error];        
+    }	
     return persistentStoreCoordinator;
+}
+
+
+- (void) saveManagedObjectContext:(NSManagedObjectContext *)aManagedObjectContext
+{
+    NSError *error = nil;
+    if (aManagedObjectContext != nil)
+    {
+        // if we have changes, call save, pass pointer (address) to store any error(s), get BOOL result.
+        // - (BOOL)save:(NSError **)errorPointer returns YES if successful, otherwise NO        
+        if ([aManagedObjectContext hasChanges] && ![aManagedObjectContext save:&error])
+        {
+			// handle error
+            [self handleManagedObjectContextSaveError:error];
+        } 
+    }    
+}
+
+
+- (void) handleManagedObjectContextSaveError:(NSError *)anError
+{
+    DLog(@"Unresolved error %@, %@", anError, [anError userInfo]);
+    
+    // abort() causes the application to generate a crash log and terminate.
+    // if abort() runs, the console will show something like Program received signal: "SIGABORT".
+    // You should not use abort() in a shipping application, although it may be useful during development.
+    // abort();
+    
+    // If it is not possible to recover from the error, 
+    // display an alert panel that instructs the user to quit the application by pressing the Home button.
+    
+    UIAlertView *MOCSaveErrorAlert = [[UIAlertView alloc] 
+                                      initWithTitle:@"Error saving data"
+                                      message:@"Please press OK, then close program"
+                                      delegate:nil
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+    [MOCSaveErrorAlert show];
+    [MOCSaveErrorAlert release];    
+}
+
+
+- (void)handlePersistentStoreCoordinatorAddError:(NSError *)anError
+{
+    DLog(@"Unresolved error %@, %@", anError, [anError userInfo]);
+    
+    // display an alert panel that instructs the user to quit the application by pressing the Home button.
+    UIAlertView *PSCAddErrorAlert = [[UIAlertView alloc] 
+                                     initWithTitle:@"Error adding data"
+                                     message:@"Please press OK, then close program"
+                                     delegate:nil
+                                     cancelButtonTitle:@"OK"
+                                     otherButtonTitles:nil];
+    [PSCAddErrorAlert show];
+    [PSCAddErrorAlert release];    
 }
 
 
