@@ -27,7 +27,11 @@
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.navigationItem.title = @"Pets";
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewPet)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] 
+                                  initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                  target:self 
+                                  action:@selector(insertNewPet)];
+    
     self.navigationItem.rightBarButtonItem = addButton;
     [addButton release];
 	
@@ -42,43 +46,6 @@
 		abort();
 	}
 }
-
-/*
- - (void)viewWillAppear:(BOOL)animated {
- [super viewWillAppear:animated];
- }
- */
-/*
- - (void)viewDidAppear:(BOOL)animated {
- [super viewDidAppear:animated];
- }
- */
-/*
- - (void)viewWillDisappear:(BOOL)animated {
- [super viewWillDisappear:animated];
- }
- */
-/*
- - (void)viewDidDisappear:(BOOL)animated {
- [super viewDidDisappear:animated];
- }
- */
-
-/*
-- (void)viewDidUnload {
-	// Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
-	// For example: self.myOutlet = nil;
-    [super viewDidUnload];
-}
-*/
-
-/*
- // Override to allow orientations other than the default portrait orientation.
- - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
- // Return YES for supported orientations.
- return (interfaceOrientation == UIInterfaceOrientationPortrait);
- }
- */
 
 
 #pragma mark Memory management
@@ -103,7 +70,8 @@
 }
 
 
-- (void)dealloc {
+- (void)dealloc 
+{
 	[fetchedResultsController release], fetchedResultsController = nil;
 	[managedObjectContext release], managedObjectContext = nil;
 	[addingManagedObjectContext release], addingManagedObjectContext = nil;
@@ -114,13 +82,12 @@
 #pragma mark -
 #pragma mark Add a new object
 
-- (void)insertNewPet {
-    
+- (void)insertNewPet
+{    
     AddViewController *addViewController = [[AddViewController alloc]
                                             initWithStyle:UITableViewStyleGrouped];
     // this setter assigns, doesn't retain
-    addViewController.delegate = self;
-	
+    addViewController.delegate = self;	
     
 	NSManagedObjectContext *addingContext = [[NSManagedObjectContext alloc] init];
     self.addingManagedObjectContext = addingContext;
@@ -146,25 +113,29 @@
 #pragma mark -
 #pragma mark Table view methods
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return [[fetchedResultsController sections] count];
 }
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
 	id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
     return [sectionInfo numberOfObjects];
 }
 
 
 // Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView 
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
+                                       reuseIdentifier:CellIdentifier] autorelease];
     }
     
 	// Configure the cell.
@@ -175,26 +146,19 @@
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     // Navigation logic may go here -- for example, create and push another view controller.
     
-    DetailViewController *detailViewController = [[DetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    DetailViewController *detailViewController = [[DetailViewController alloc] 
+                                                  initWithStyle:UITableViewStyleGrouped];
     Pet *selectedObject = (Pet *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
     detailViewController.pet = selectedObject;
-    // ...
+
     // Pass the selected object to the new view controller.
     [self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];
 }
-
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
 
 
 // Override to support editing the table view.
@@ -220,7 +184,8 @@
 }
 
 
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
     // The table view should not be re-orderable.
     return NO;
 }
@@ -229,8 +194,8 @@
 #pragma mark -
 #pragma mark Fetched results controller
 
-- (NSFetchedResultsController *)fetchedResultsController {
-    
+- (NSFetchedResultsController *)fetchedResultsController
+{
     if (fetchedResultsController != nil) {
         return fetchedResultsController;
     }
@@ -298,8 +263,8 @@
 
 #pragma mark -
 #pragma mark AddViewControllerDelegate methods
-- (void)addViewController:(AddViewController *)controller didFinishWithSave:(BOOL)save {
-    
+- (void)addViewController:(AddViewController *)controller didFinishWithSave:(BOOL)save
+{    
     if (save) {
         NSNotificationCenter *dnc = [NSNotificationCenter defaultCenter];
         // register rootViewController to be notified of NSManagedObjectContextDidSaveNotification
@@ -324,7 +289,8 @@
 
 #pragma mark Notification handling
 
--(void)addControllerContextDidSave:(NSNotification *)saveNotification {
+-(void)addControllerContextDidSave:(NSNotification *)saveNotification
+{
     NSManagedObjectContext *context = [fetchedResultsController managedObjectContext];
     // Merging changes causes the fetched results controller to update its results
     [context mergeChangesFromContextDidSaveNotification:saveNotification];

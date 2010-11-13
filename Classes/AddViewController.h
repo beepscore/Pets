@@ -7,20 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
-
 // import base class
 #import "DetailViewController.h"
+@class AddViewController;
 
-// declare protocol.  It could be defined here, but Apple convention
-// defines at end of .h file
-@protocol AddViewControllerDelegate;
+// declare protocol
+@protocol AddViewControllerDelegate
+- (void)addViewController:(AddViewController *)controller didFinishWithSave:(BOOL)save;
+@end
 
 @interface AddViewController : DetailViewController {
     // declare a delegate that implements AddViewControllerDelegate protocol
     id <AddViewControllerDelegate> delegate;
 }
 
-// !!!!:delegate property always uses assign, not retain, to avoid circular retain.
+// delegate property always uses assign, not retain, to avoid circular retain.
 // Instead, the delegate object will retain the object it is a delegate of
 @property (nonatomic, assign) id <AddViewControllerDelegate> delegate;
 
@@ -29,8 +30,4 @@
 - (void)save:(id)sender;
 @end
 
-// define protocol required methods
-@protocol AddViewControllerDelegate
-- (void)addViewController:(AddViewController *)controller didFinishWithSave:(BOOL)save;
-@end
 

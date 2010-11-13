@@ -27,12 +27,11 @@
 @synthesize window;
 @synthesize navigationController;
 
-
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {    
-    
+- (void)applicationDidFinishLaunching:(UIApplication *)application
+{    
     // Override point for customization after app launch    
 
 	RootViewController *rootViewController = (RootViewController *)[self.navigationController topViewController];
@@ -42,9 +41,7 @@
     [window makeKeyAndVisible];
 }
 
-/**
- applicationWillTerminate: saves changes in the application's managed object context before the application terminates.
- */
+// applicationWillTerminate: saves changes in the application's managed object context before the application terminates.
 - (void)applicationWillTerminate:(UIApplication *)application
 {
 	[self saveManagedObjectContext:managedObjectContext];
@@ -62,12 +59,10 @@
 #pragma mark -
 #pragma mark Core Data stack
 
-/**
- Returns the managed object context for the application.
- If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
- */
-- (NSManagedObjectContext *) managedObjectContext {
-	
+//  Returns the managed object context for the application.
+//  If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
+- (NSManagedObjectContext *) managedObjectContext
+{	
     if (managedObjectContext != nil) {
         return managedObjectContext;
     }
@@ -85,10 +80,8 @@
 }
 
 
-/**
- Returns the managed object model for the application.
- If the model doesn't already exist, it is created by merging all of the models found in the application bundle.
- */
+// Returns the managed object model for the application.
+// If the model doesn't already exist, it is created by merging all of the models found in the application bundle.
 - (NSManagedObjectModel *)managedObjectModel {
 	
     if (managedObjectModel != nil) {
@@ -99,10 +92,8 @@
 }
 
 
-/**
- Returns the persistent store coordinator for the application.
- If the coordinator doesn't already exist, it is created and the application's store added to it.
- */
+// Returns the persistent store coordinator for the application.
+// If the coordinator doesn't already exist, it is created and the application's store added to it.
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
 	
     if (persistentStoreCoordinator != nil) {
@@ -185,10 +176,9 @@
 #pragma mark -
 #pragma mark Application's Documents directory
 
-/**
- Returns the path to the application's Documents directory.
- */
-- (NSString *)applicationDocumentsDirectory {
+// Returns the path to the application's Documents directory.
+- (NSString *)applicationDocumentsDirectory
+{
 	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
@@ -196,8 +186,8 @@
 #pragma mark -
 #pragma mark Memory management
 
-- (void)dealloc {
-	
+- (void)dealloc
+{	
     [managedObjectContext release], managedObjectContext = nil;
     [managedObjectModel release], managedObjectModel = nil;
     [persistentStoreCoordinator release], persistentStoreCoordinator = nil;
@@ -206,7 +196,6 @@
 	[window release], window = nil;
 	[super dealloc];
 }
-
 
 @end
 
